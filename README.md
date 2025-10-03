@@ -8,6 +8,16 @@ GitQlient, pronounced as git+client (/gɪtˈklaɪənt/) is a multi-platform Git 
 
 ![GitQlient main screen](/docs/assets/GitQlient.png)
 
+## Getting started
+
+```sh
+mkdir build && cd build
+```
+
+```sh
+cmake .. -DCMAKE_PREFIX_PATH="C:/Qt/6.9.2/msvc2022_64"
+```
+
 ## Main features
 
 Some of the major feature you can find are:
