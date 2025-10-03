@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic-errors -Wno-deprecated -Wno-deprecated-declarations")
+#set(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic-errors -Wno-deprecated -Wno-deprecated-declarations")
 
 execute_process(
    COMMAND
@@ -38,6 +38,7 @@ if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/QLogger/.git" OR
     endif()
 endif()
 
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 find_package(Qt6 COMPONENTS Core Widgets Network Svg REQUIRED)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -247,5 +248,15 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Windows")
    set(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut '\\$SMPROGRAMS\\\\${PROJECT_NAME}\\\\${PROJECT_NAME}.lnk' '\\$INSTDIR\\\\${PROJECT_NAME}.exe'")
    set(CPACK_NSIS_DELETE_ICONS_EXTRA "Delete '\\$SMPROGRAMS\\\\${PROJECT_NAME}\\\\${PROJECT_NAME}.lnk'\\nRMDir '\\$SMPROGRAMS\\\\${PROJECT_NAME}'")
    include(CPack)
+   
+   set(QT_INSTALL_PREFIX "C:\\Qt\\6.9.2\\msvc2022_64")
+   add_custom_command(
+		TARGET ${PROJECT_NAME}
+			POST_BUILD
+			COMMAND "${QT_INSTALL_PREFIX}/bin/windeployqt.exe"
+			"$<TARGET_FILE:${PROJECT_NAME}>"
+			COMMENT
+				"Copy Qt libraries.\n"
+		)
 
 endif()

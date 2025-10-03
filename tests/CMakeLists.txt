@@ -6,10 +6,6 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Test)
-
-qt_standard_project_setup()
-
 add_subdirectory(Tests_Core)
 
 ## Addig Catch2
